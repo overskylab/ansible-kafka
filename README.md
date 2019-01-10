@@ -22,6 +22,19 @@ None.
       roles:
         - ansible-kafka
 
+## Example Inventory
+
+```
+kafka-1
+kafka-2
+kafka-3
+
+[kafka_all]
+kafka-1
+kafka-2
+kafka-3
+```
+
 ## License
 
 MIT
