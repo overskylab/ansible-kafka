@@ -2,7 +2,7 @@
 kafka_group_name: kafka
 kafka_download_url: http://www-us.apache.org/dist/kafka/2.1.0/kafka_2.12-2.1.0.tgz
 kafka_install_dir: /opt/kafka
-kafka_data_dir: /var/lib/kafka
+kafka_log_dir: /var/lib/kafka
 kafka_config_file_path: /opt/kafka/config/server.properties
 kafka_user: kafka
 kafka_group: kafka
@@ -16,3 +16,31 @@ kafka_zookeeper_myid_file_path: /var/lib/zookeeper/myid
 kafka_zookeeper_client_port: 2181
 kafka_zookeeper_follower_port: 2888
 kafka_zookeeper_leader_port: 3888
+
+# Kafka settings
+kafka_network_thread: 3
+kafka_io_thread: 8
+kafka_log_recovery_thread: 1
+kafka_log_partition_number: 1
+kafka_log_retention_hours: 168
+kafka_log_retention_check_interval_ms: 300000
+kafka_offset_topic_replication_factor: 1
+kafka_transaction_state_log_replication_factor: 1
+kafka_transaction_state_log_min_isr: 1
+kafka_zookeeper_connection_timeout_ms: 6000
+
+kafka_address: "{{ ansible_host }}"
+kafka_cluster_members: "{{ groups['kafka_all'] }}"
+kafka_server_bootstrap_node: "{{ kafka_cluster_members[0] }}"
+kafka_cluster_address: >-
+  {% set _var = [] -%}
+  {% for cluster_host in kafka_cluster_members -%}
+  {% set _addr = hostvars[cluster_host]['kafka_address']
+                 | default(hostvars[cluster_host]['ansible_host']) -%}
+  {% if _var.append(_addr) %}{% endif -%}
+  {% endfor -%}
+  {# If only 1 cluster member is present output an empty string so the
+     single-node member will re-bootstrap correctly upon restart #}
+  {{ _var | join(',') if kafka_cluster_members | length > 1 else '' }}
+
+kafka_cluster_addresses: "{{ kafka_cluster_address.split(',') }}"

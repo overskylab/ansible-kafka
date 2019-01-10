@@ -1,6 +1,5 @@
 # Ansible Role: Kafka
-
-
+This role for install, config kafka cluster
 
 ## Requirements
 
@@ -8,7 +7,7 @@ None.
 
 ## Role Variables
 
-
+N/A
 
 ## Dependencies
 
@@ -18,13 +17,9 @@ None.
 
     - hosts: all
       roles:
-        - opsta.kafka
-
+        - ansible-kafka
 
 ## License
 
 MIT
 
-## Author Information
-
-Opsta (Thailand) Co.,Ltd.

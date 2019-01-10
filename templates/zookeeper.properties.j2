@@ -19,12 +19,13 @@ clientPort={{ kafka_zookeeper_client_port }}
 # specify all zookeeper servers
 # The fist port is used by followers to connect to the leader
 # The second one is used for leader election
-#server.1=zookeeper1:2888:3888
-#server.2=zookeeper2:2888:3888
-#server.3=zookeeper3:2888:3888
+#   EXAMPLE:
+#     server.1=zookeeper1:2888:3888
+#     server.2=zookeeper2:2888:3888
+#     server.3=zookeeper3:2888:3888
 {% if not kafka_zookeeper_standalone %}
-{%   for host in ansible_play_hosts %}
-server.{{ loop.index }}={{ hostvars[host].ansible_default_ipv4.address }}:{{ kafka_zookeeper_follower_port }}:{{ kafka_zookeeper_leader_port }}
+{%   for ip_address in kafka_cluster_addresses %}
+server.{{ loop.index }}={{ ip_address }}:{{ kafka_zookeeper_follower_port }}:{{ kafka_zookeeper_leader_port }}
 {%   endfor %}
 {% endif %}
 

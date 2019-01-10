@@ -10,6 +10,7 @@
   template:
     src: zookeeper.properties.j2
     dest: "{{ kafka_zookeeper_config_file_path }}"
+  notify: Restart Zookeeper
 
 - name: Drop myid file
   template:

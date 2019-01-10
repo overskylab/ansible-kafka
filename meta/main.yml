@@ -1,16 +1,15 @@
 ---
 galaxy_info:
-  author: Opsta
+  role_name: kafka
+  author: Teerawat Namsricharoensuk
   description: Ansible role to install and config Kafka
-  company: "Opsta (Thailand) Co.,Ltd."
   license: "MIT"
-  min_ansible_version: 2.4
+  min_ansible_version: 2.7
   platforms:
-  - name: Ubuntu
-    versions:
-    - trusty
-    - xenial
+    - name: Ubuntu
+      versions:
+        - trusty
+        - xenial
   galaxy_tags:
-    - Kafka
-    - MessageQueue
+    - kafka
 dependencies: []
