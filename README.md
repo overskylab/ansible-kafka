@@ -16,6 +16,9 @@ None.
 ## Example Playbook
 
     - hosts: all
+      gather_facts: yes
+      become: true
+      serial: 1
       roles:
         - ansible-kafka
 
