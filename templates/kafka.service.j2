@@ -10,6 +10,8 @@ Type=simple
 PIDFile=/var/run/kafka.pid
 User={{ kafka_user }}
 Group={{ kafka_group }}
+Environment="KAFKA_OPTS={{ kafka_jvm_options }}"
+Environment="KAFKA_LOG4J_OPTS=-Dlog4j.configuration=file:{{ kafka_log_dir }}"
 ExecStart={{ kafka_install_dir }}/bin/kafka-server-start.sh {{ kafka_install_dir }}/config/server.properties
 ExecStop={{ kafka_install_dir }}/bin/kafka-server-stop.sh
 

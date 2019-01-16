@@ -2,10 +2,23 @@
 kafka_group_name: kafka
 kafka_download_url: http://www-us.apache.org/dist/kafka/2.1.0/kafka_2.12-2.1.0.tgz
 kafka_install_dir: /opt/kafka
-kafka_log_dir: /var/lib/kafka
+kafka_data_dir: /var/lib/kafka
+kafka_log_dir: /var/log/kafka
 kafka_config_file_path: /opt/kafka/config/server.properties
 kafka_user: kafka
 kafka_group: kafka
+
+kafka_jvm_options: >-
+  -Xmx6g
+  -Xms6g
+  -XX:MetaspaceSize=96m
+  -XX:+UseG1GC
+  -XX:MaxGCPauseMillis=20
+  -XX:InitiatingHeapOccupancyPercent=35
+  -XX:G1HeapRegionSize=16M
+  -XX:MinMetaspaceFreeRatio=50
+  -XX:MaxMetaspaceFreeRatio=80
+  -D
 
 kafka_zookeeper_embedded: true # TODO: when false, it should handle external zookeeper hosts
 kafka_zookeeper_standalone: "{{ (ansible_play_hosts | length | int > 1) | ternary(false, true) }}"
@@ -28,6 +41,8 @@ kafka_offset_topic_replication_factor: 1
 kafka_transaction_state_log_replication_factor: 1
 kafka_transaction_state_log_min_isr: 1
 kafka_zookeeper_connection_timeout_ms: 6000
+
+kafka_custom_configs: {}
 
 kafka_address: "{{ ansible_host }}"
 kafka_cluster_members: "{{ groups['kafka_all'] }}"

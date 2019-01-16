@@ -66,7 +66,7 @@ socket.request.max.bytes=104857600
 ############################# Log Basics #############################
 
 # A comma separated list of directories under which to store log files
-log.dirs={{ kafka_log_dir }}
+log.dirs={{ kafka_data_dir }}
 
 # The default number of log partitions per topic. More partitions allow greater
 # parallelism for consumption, but this will also result in more files across
@@ -147,3 +147,8 @@ zookeeper.connection.timeout.ms={{ kafka_zookeeper_connection_timeout_ms }}
 # We override this to 0 here as it makes for a better out-of-the-box experience for development and testing.
 # However, in production environments the default value of 3 seconds is more suitable as this will help to avoid unnecessary, and potentially expensive, rebalances during application startup.
 group.initial.rebalance.delay.ms=0
+
+############################# Customize Settings #####################################
+{% for key, value in kafka_custom_configs.items() %}
+{{ key | replace('_', '.') }} = {{ value }}
+{% endfor %}
