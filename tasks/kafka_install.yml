@@ -1,5 +1,5 @@
 ---
-- name: Download Kafka and extract files
+- name: Download kafka and extract files
   unarchive:
     src: "{{ kafka_download_url }}"
     dest: "{{ kafka_install_dir }}"

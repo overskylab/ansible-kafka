@@ -19,16 +19,10 @@
 
 # The id of the broker. This must be set to a unique integer for each broker.
 {% if kafka_zookeeper_standalone is defined and not kafka_zookeeper_standalone %}
-{% for host in ansible_play_hosts %}
-{%   if inventory_hostname == host %}
-broker.id={{ loop.index }}
-{%   endif %}
-{% endfor %}
+broker.id={{ _broker_id_number }}
 {% else %}
 broker.id=0
 {% endif %}
-
-
 
 ############################# Socket Server Settings #############################
 

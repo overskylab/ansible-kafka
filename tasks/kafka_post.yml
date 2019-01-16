@@ -1,4 +1,8 @@
 ---
+- name: Register fact for broker id number by ordered
+  set_fact:
+    _broker_id_number: "{{ groups['kafka_all'].index(inventory_hostname) }}"
+
 - name: Drop Kafka configuration file
   template:
     src: server.properties.j2
