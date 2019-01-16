@@ -7,7 +7,7 @@
 
 - name: Register fact for myid number by ordered
   set_fact:
-    _myid_number: groups['kafka_all'].index(inventory_hostname)
+    _myid_number: "{{ groups['kafka_all'].index(inventory_hostname) }}"
 
 - name: Drop myid file
   template:
