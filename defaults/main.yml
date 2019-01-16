@@ -8,6 +8,8 @@ kafka_config_file_path: /opt/kafka/config/server.properties
 kafka_user: kafka
 kafka_group: kafka
 
+kafka_heap_options: "-Xmx2g -Xms2g"
+
 kafka_jvm_options: >-
   -Xmx6g
   -Xms6g
