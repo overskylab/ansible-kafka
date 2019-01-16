@@ -12,7 +12,6 @@ User={{ kafka_user }}
 Group={{ kafka_group }}
 Environment="KAFKA_OPTS={{ kafka_jvm_options }}"
 Environment="KAFKA_HEAP_OPTS={{ kafka_jvm_heap_options }}"
-Environment="LOG_DIR={{ kafka_log_dir }}"
 ExecStart={{ kafka_install_dir }}/bin/kafka-server-start.sh {{ kafka_install_dir }}/config/server.properties
 ExecStop={{ kafka_install_dir }}/bin/kafka-server-stop.sh
 

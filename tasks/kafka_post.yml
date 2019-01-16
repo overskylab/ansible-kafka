@@ -1,20 +1,12 @@
 ---
-- name: Create Kafka Systemd Unit file
-  template:
-    src: kafka.service.j2
-    dest: /lib/systemd/system/kafka.service
-    mode: 0644
-  register: kafka_systemd
-
-- name: Ensure Kafka started and enabled
-  systemd:
-    name: kafka
-    state: started
-    enabled: yes
-    daemon_reload: yes
-
 - name: Drop Kafka configuration file
   template:
     src: server.properties.j2
     dest: "{{ kafka_config_file_path }}"
+  notify: Restart Kafka
+
+- name: Drop Kafka log configuration file
+  template:
+    src: log4j.properties.j2
+    dest: "{{ kafka_config_log_file_path }}"
   notify: Restart Kafka

@@ -13,3 +13,16 @@
     owner: "{{ kafka_user }}"
     group: "{{ kafka_group }}"
     recurse: yes
+
+- name: Drop kafka systemd unit file
+  template:
+    src: kafka.service.j2
+    dest: /lib/systemd/system/kafka.service
+    mode: 0644
+
+- name: Ensure kafka started and running on startup
+  systemd:
+    name: kafka
+    state: started
+    enabled: yes
+    daemon_reload: yes

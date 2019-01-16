@@ -5,6 +5,7 @@ kafka_install_dir: /opt/kafka
 kafka_data_dir: /var/lib/kafka
 kafka_log_dir: /var/log/kafka
 kafka_config_file_path: /opt/kafka/config/server.properties
+kafka_config_log_file_path: /opt/kafka/config/log4j.properties
 kafka_user: kafka
 kafka_group: kafka
 

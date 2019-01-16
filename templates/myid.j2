@@ -1,5 +1,1 @@
-{% for host in ansible_play_hosts %}
-{%   if inventory_hostname == host %}
-{{ loop.index }}
-{%   endif %}
-{% endfor %}
+{{ _myid_number }}

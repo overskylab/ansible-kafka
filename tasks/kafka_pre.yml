@@ -1,23 +1,25 @@
 ---
-- name: Add Kafka Group
+- name: Add kafka group
   group:
     name: "{{ kafka_group }}"
 
-- name: Add Kafka User
+- name: Add kafka user
   user:
     name: "{{ kafka_user }}"
     group: "{{ kafka_group }}"
     shell: /bin/bash
     home: "{{ kafka_install_dir }}"
+    password: '!'
+    state: present
 
-- name: Create Kafka data directory
+- name: Create kafka data directory
   file:
     path: "{{ kafka_data_dir }}"
     state: directory
     owner: "{{ kafka_user }}"
     group: "{{ kafka_group }}"
 
-- name: Create Kafka log directory
+- name: Create kafka log directory
   file:
     path: "{{ kafka_log_dir }}"
     state: directory
