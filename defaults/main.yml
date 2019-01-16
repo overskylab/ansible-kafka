@@ -18,7 +18,6 @@ kafka_jvm_options: >-
   -XX:G1HeapRegionSize=16M
   -XX:MinMetaspaceFreeRatio=50
   -XX:MaxMetaspaceFreeRatio=80
-  -D
 
 kafka_zookeeper_embedded: true # TODO: when false, it should handle external zookeeper hosts
 kafka_zookeeper_standalone: "{{ (ansible_play_hosts | length | int > 1) | ternary(false, true) }}"
