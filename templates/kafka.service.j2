@@ -11,7 +11,7 @@ PIDFile=/var/run/kafka.pid
 User={{ kafka_user }}
 Group={{ kafka_group }}
 Environment="KAFKA_OPTS={{ kafka_jvm_options }}"
-Environment="KAFKA_HEAP_OPTS={{ kafka_heap_options }}"
+Environment="KAFKA_HEAP_OPTS={{ kafka_jvm_heap_options }}"
 Environment="KAFKA_LOG4J_OPTS=-Dkafka.logs.dir={{ kafka_log_dir }}"
 ExecStart={{ kafka_install_dir }}/bin/kafka-server-start.sh {{ kafka_install_dir }}/config/server.properties
 ExecStop={{ kafka_install_dir }}/bin/kafka-server-stop.sh
