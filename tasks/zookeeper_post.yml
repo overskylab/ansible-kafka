@@ -4,6 +4,7 @@
     src: zookeeper.service.j2
     dest: /lib/systemd/system/zookeeper.service
     mode: 0644
+  notify: Restart Zookeeper
 
 - name: Register fact for myid number by ordered
   set_fact:
@@ -13,6 +14,7 @@
   template:
     src: myid.j2
     dest: "{{ kafka_zookeeper_myid_file_path }}"
+  notify: Restart Zookeeper
 
 - name: Drop zookeeper configuration file
   template:
