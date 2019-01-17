@@ -30,8 +30,6 @@
 - name: Check if log directory is exists
   stat:
     path: "/var/log/kafka"
-  become: false
-  delegate_to: 127.0.0.1
   register: kafka_system_log_dir_check
 
 - name: Message log directory is exists
