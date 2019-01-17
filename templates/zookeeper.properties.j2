@@ -1,13 +1,13 @@
 # http://hadoop.apache.org/zookeeper/docs/current/zookeeperAdmin.html
 
 # The number of milliseconds of each tick
-tickTime=2000
+#tickTime=2000
 # The number of ticks that the initial 
 # synchronization phase can take
-initLimit=10
+#initLimit=10
 # The number of ticks that can pass between 
 # sending a request and getting an acknowledgement
-syncLimit=5
+#syncLimit=5
 # the directory where the snapshot is stored.
 dataDir={{ kafka_zookeeper_snapshot_dir }}
 # Place the dataLogDir to a separate physical disc for better performance
@@ -54,6 +54,10 @@ server.{{ loop.index0 }}={{ ip_address }}:{{ kafka_zookeeper_follower_port }}:{{
 # read throughput the leader can be configured to not accept clients and focus
 # on coordination.
 #leaderServes=yes
+
+{% for key, value in kafka_zookeeper_default_configs.items() %}
+{{ key | replace('_', '.') }} = {{ value }}
+{% endfor %}
 
 ############################# Customize Settings #####################################
 {% for key, value in kafka_zookeeper_custom_configs.items() %}

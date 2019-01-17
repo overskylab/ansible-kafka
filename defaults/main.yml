@@ -21,6 +21,10 @@ kafka_zookeeper_myid_file_path: /var/lib/zookeeper/myid
 kafka_zookeeper_client_port: 2181
 kafka_zookeeper_follower_port: 2888
 kafka_zookeeper_leader_port: 3888
+kafka_zookeeper_default_configs:
+  tickTime: 2000
+  initLimit: 10
+  syncLimit: 5
 kafka_zookeeper_custom_configs: {}
 
 # Kafka settings
@@ -31,16 +35,29 @@ kafka_jvm_options: >-
   -XX:MinMetaspaceFreeRatio=50
   -XX:MaxMetaspaceFreeRatio=80
 
-kafka_network_thread: 3
-kafka_io_thread: 8
-kafka_log_recovery_thread: 1
-kafka_log_partition_number: 1
-kafka_log_retention_hours: 168
-kafka_log_retention_check_interval_ms: 300000
-kafka_offset_topic_replication_factor: 1
-kafka_transaction_state_log_replication_factor: 1
-kafka_transaction_state_log_min_isr: 1
-kafka_zookeeper_connection_timeout_ms: 6000
+kafka_default_configs:
+  num_partitions: 1
+  log_segment_bytes: 1073741824
+  log_retention_check_interval_ms: 300000
+  log_retention_hours: 168
+  zookeeper_connection_timeout_ms: 6000
+
+kafka_socket_server_configs:
+  num_network_threads: 3
+  num_io_threads: 8
+  socket_send_buffer_bytes: 102400
+  socket_receive_buffer_bytes: 102400
+  socket_request_max_bytes: 104857600
+  num_recovery_threads_per_data_dir: 1
+
+kafka_internal_topic_settings:
+  offsets_topic_replication_factor: 1
+  transaction_state_log_replication_factor: 1
+  transaction_state_log_min_isr: 1
+
+kafka_group_coordinator_configs:
+  group_initial_rebalance_delay_ms: 0
+
 kafka_custom_configs: {}
 
 kafka_address: "{{ ansible_host }}"

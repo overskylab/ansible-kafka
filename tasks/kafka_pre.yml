@@ -26,9 +26,28 @@
     owner: "{{ kafka_user }}"
     group: "{{ kafka_group }}"
 
+
+- name: Check if log directory is exists
+  stat:
+    path: "/var/log/kafka"
+  become: false
+  delegate_to: 127.0.0.1
+  register: kafka_system_log_dir_check
+
+- name: Message log directory is exists
+  debug:
+    msg: "/var/log/kafka is existsed, skip creating symlink"
+  when:
+    - kafka_log_dir_symlink
+    - kafka_system_log_dir_check.stat.isdir is defined
+    - kafka_system_log_dir_check.stat.isdir
+
 - name: Create log directory symlink
   file:
     path: "{{ kafka_install_dir }}/logs"
     dest: "/var/log/kafka"
     state: link
-  when: kafka_log_dir_symlink
+  when: 
+    - kafka_log_dir_symlink
+    - kafka_system_log_dir_check.stat.isdir is defined
+    - kafka_system_log_dir_check.stat.isdir
