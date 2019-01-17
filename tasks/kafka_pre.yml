@@ -41,7 +41,7 @@
 
 - name: Create log directory symlink
   file:
-    path: "{{ kafka_install_dir }}/logs"
+    src: "{{ kafka_install_dir }}/logs"
     dest: "/var/log/kafka"
     state: link
   when: 
