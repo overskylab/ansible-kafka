@@ -39,8 +39,7 @@
     msg: "/var/log/kafka is existsed, skip creating symlink"
   when:
     - kafka_log_dir_symlink
-    - kafka_system_log_dir_check.stat.isdir is defined
-    - kafka_system_log_dir_check.stat.isdir
+    - kafka_system_log_dir_check.stat.exists
 
 - name: Create log directory symlink
   file:
@@ -49,5 +48,4 @@
     state: link
   when: 
     - kafka_log_dir_symlink
-    - kafka_system_log_dir_check.stat.isdir is defined
-    - kafka_system_log_dir_check.stat.isdir
+    - not kafka_system_log_dir_check.stat.exists
