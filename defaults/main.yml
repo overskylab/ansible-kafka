@@ -9,15 +9,11 @@ kafka_config_log_file_path: /opt/kafka/config/log4j.properties
 kafka_user: kafka
 kafka_group: kafka
 
-kafka_jvm_heap_options: "-Xmx2g -Xms2g"
-kafka_jvm_options: >-
-  -XX:MetaspaceSize=96m
-  -XX:G1HeapRegionSize=16M
-  -XX:MinMetaspaceFreeRatio=50
-  -XX:MaxMetaspaceFreeRatio=80
-
+# Zookeeper settings
+kafka_zookeeper_jvm_options: "-Xmx1g -Xms1g"
 kafka_zookeeper_embedded: true # TODO: when false, it should handle external zookeeper hosts
 kafka_zookeeper_standalone: "{{ (ansible_play_hosts | length | int > 1) | ternary(false, true) }}"
+kafka_zookeeper_snapshot_dir: /var/lib/zookeeper
 kafka_zookeeper_data_dir: /var/lib/zookeeper
 kafka_zookeeper_log_dir: /var/log/zookeeper
 kafka_zookeeper_config_file_path: /opt/kafka/config/zookeeper.properties
@@ -25,8 +21,16 @@ kafka_zookeeper_myid_file_path: /var/lib/zookeeper/myid
 kafka_zookeeper_client_port: 2181
 kafka_zookeeper_follower_port: 2888
 kafka_zookeeper_leader_port: 3888
+kafka_zookeeper_custom_configs: {}
 
 # Kafka settings
+kafka_jvm_heap_options: "-Xmx2g -Xms2g"
+kafka_jvm_options: >-
+  -XX:MetaspaceSize=96m
+  -XX:G1HeapRegionSize=16M
+  -XX:MinMetaspaceFreeRatio=50
+  -XX:MaxMetaspaceFreeRatio=80
+
 kafka_network_thread: 3
 kafka_io_thread: 8
 kafka_log_recovery_thread: 1
@@ -37,7 +41,6 @@ kafka_offset_topic_replication_factor: 1
 kafka_transaction_state_log_replication_factor: 1
 kafka_transaction_state_log_min_isr: 1
 kafka_zookeeper_connection_timeout_ms: 6000
-
 kafka_custom_configs: {}
 
 kafka_address: "{{ ansible_host }}"
