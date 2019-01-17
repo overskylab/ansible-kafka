@@ -10,7 +10,7 @@ kafka_user: kafka
 kafka_group: kafka
 
 # Zookeeper settings
-kafka_zookeeper_jvm_options: "-Xmx1g -Xms1g"
+kafka_zookeeper_jvm_options: "-Xmx512M -Xms512M"
 kafka_zookeeper_embedded: true # TODO: when false, it should handle external zookeeper hosts
 kafka_zookeeper_standalone: "{{ (ansible_play_hosts | length | int > 1) | ternary(false, true) }}"
 kafka_zookeeper_snapshot_dir: /var/lib/zookeeper
@@ -24,7 +24,7 @@ kafka_zookeeper_leader_port: 3888
 kafka_zookeeper_custom_configs: {}
 
 # Kafka settings
-kafka_jvm_heap_options: "-Xmx2g -Xms2g"
+kafka_jvm_heap_options: "-Xmx1g -Xms1g"
 kafka_jvm_options: >-
   -XX:MetaspaceSize=96m
   -XX:G1HeapRegionSize=16M
