@@ -1,4 +1,13 @@
 ---
+- name: Add export varialbes into start kafka server script
+  blockinfile:
+    path: "{{ kafka_bin_dir }}/kafka-server-start.sh"
+    insertafter: "^EXTRA_ARGS"
+    block: |
+      export {{ item.name | upper }}={{ item.value }}
+  with_items: "{{ kafka_export_environments }}"
+  notify: Restart Kafka
+
 - name: Register fact for broker id number by ordered
   set_fact:
     _broker_id_number: "{{ groups['kafka_all'].index(inventory_hostname) }}"

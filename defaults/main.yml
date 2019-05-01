@@ -3,6 +3,7 @@ kafka_group_name: kafka
 kafka_download_url: http://www-us.apache.org/dist/kafka/2.1.0/kafka_2.12-2.1.0.tgz
 kafka_install_dir: /opt/kafka
 kafka_data_dir: /var/lib/kafka
+kafka_bin_dir: "{{ kafka_install_dir }}/bin"
 kafka_log_dir: "{{ kafka_install_dir }}/logs"
 kafka_log_dir_symlink: yes
 kafka_config_file_path: /opt/kafka/config/server.properties
@@ -28,12 +29,16 @@ kafka_zookeeper_default_configs:
 kafka_zookeeper_custom_configs: {}
 
 # Kafka settings
+kafka_export_environments:
+  - name: JMX_PORT
+    value: 9999
 kafka_jvm_heap_options: "-Xmx1g -Xms1g"
 kafka_jvm_options: >-
   -XX:MetaspaceSize=96m
   -XX:G1HeapRegionSize=16M
   -XX:MinMetaspaceFreeRatio=50
   -XX:MaxMetaspaceFreeRatio=80
+  # -javaagent:/var/lib/jolokia/jolokia-jvm-1.6.0-agent.jar=port=8778,host=0.0.0.0
 
 kafka_default_configs:
   num_partitions: 1

@@ -19,6 +19,7 @@
     src: kafka.service.j2
     dest: /lib/systemd/system/kafka.service
     mode: 0644
+  notify: Restart Kafka
 
 - name: Ensure kafka started and running on startup
   systemd:
